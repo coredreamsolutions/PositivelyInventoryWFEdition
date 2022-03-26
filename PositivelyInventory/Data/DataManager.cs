@@ -12,7 +12,6 @@ namespace PositivelyInventory.Data
 
         public string? backupDatabasePath = String.Empty;
         public string? backupDatabaseTempPath = String.Empty;
-        string _ConnectionString;
 
         public DataManager()
         {
@@ -110,10 +109,10 @@ namespace PositivelyInventory.Data
                         File.Copy(backupDatabasePath, backupDatabaseTempPath, true);
 
                         // Vacuum and reindex the temp database file.
-                       // VacuumDatabase(backupDatabaseTempPath);
+                        VacuumDatabase(backupDatabaseTempPath);
 
                         // Test to see if the temp database file is still valid and openable.
-                      //  bool isValid = TestDatabaseIsValid(backupDatabaseTempPath);
+                        bool isValid = TestDatabaseIsValid(backupDatabaseTempPath);
 
                         if (true)
                         {
@@ -122,17 +121,21 @@ namespace PositivelyInventory.Data
 
                             // Rename the temp file back to the back up file.
                             File.Copy(backupDatabaseTempPath, backupDatabasePath, true);
-                           
+
+                            // Clear all pending/idle pools so we can close the database
+                            // Source: https://github.com/dotnet/efcore/issues/26369
+                            SqliteConnection.ClearAllPools();
+
                             // Delete the temp database filename.
-                            // FAIL: Claims it is being used.
+                            // Status: WORKS!!!!!
                             File.Delete(backupDatabaseTempPath);
-                       
+
                             // Display a information dialog, letting the user know the operation was successful.
                             MessageBox.Show($@"Manual data backup has been completed, the location it is located here:
                                           {Environment.NewLine}{backupDatabasePath}", "Backup Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
-                } 
+                }
             }
 
             //TODO
@@ -156,16 +159,19 @@ namespace PositivelyInventory.Data
                     string sqlCommand = @"VACUUM;";
 
                     // Execute the VACUUM command.
-                    connection.Execute(sqlCommand, trans);      
+                    connection.Execute(sqlCommand, trans);
                 }
-            }     
+            }
         }
 
+        // This is what triggers the fail, if omitted, the rest of the c
         public bool TestDatabaseIsValid(string databaseFile)
         {
+            //bool result = false; Passes
             // Establish a new connection object.
             using (SqliteConnection connection = GetConnection(databaseFile))
             {
+
                 // Open the database file you selected.
                 connection.Open();
 
@@ -176,10 +182,12 @@ namespace PositivelyInventory.Data
                 else
                     return true;
             }
+
+        
         }
 
         /// <summary>
-        /// Create a brand new database, and populate it with tables and default data, using a valid app .sql file. 
+        /// Create a brand new database, and populate it with tables and default data, using a valid app .sql file.
         /// </summary>
         /// <param name="sqlFile">Name of the new file.</param>
         /// <exception cref="NotImplementedException"></exception>
@@ -192,10 +200,10 @@ namespace PositivelyInventory.Data
 
             throw new NotImplementedException();
         }
-    
-        public SqliteConnection GetConnection(string databaseFile) 
-        { 
-            return new SqliteConnection($"Data Source={databaseFile}"); 
+
+        public SqliteConnection GetConnection(string databaseFile)
+        {
+            return new SqliteConnection($"Data Source={databaseFile}");
         }
 
 /*
