@@ -110,12 +110,12 @@ namespace PositivelyInventory.Data
                         File.Copy(backupDatabasePath, backupDatabaseTempPath, true);
 
                         // Vacuum and reindex the temp database file.
-                        VacuumDatabase(backupDatabaseTempPath);
+                       // VacuumDatabase(backupDatabaseTempPath);
 
                         // Test to see if the temp database file is still valid and openable.
-                        bool isValid = TestDatabaseIsValid(backupDatabaseTempPath);
+                      //  bool isValid = TestDatabaseIsValid(backupDatabaseTempPath);
 
-                        if (isValid)
+                        if (true)
                         {
                             // Delete the backed up file, the non-vacuumed one.
                             File.Delete(backupDatabasePath);
@@ -124,6 +124,7 @@ namespace PositivelyInventory.Data
                             File.Copy(backupDatabaseTempPath, backupDatabasePath, true);
                            
                             // Delete the temp database filename.
+                            // FAIL: Claims it is being used.
                             File.Delete(backupDatabaseTempPath);
                        
                             // Display a information dialog, letting the user know the operation was successful.
@@ -141,11 +142,11 @@ namespace PositivelyInventory.Data
         /// <summary>
         /// Vacuum and reindex all the tables so the database is compacted.
         /// </summary>
-        /// <param name="databaseFile">The name of the backed up temp file.</param>
+        /// <param name="databaseFile">The name of the database file (backup, temp backup, or primary here).</param>
         /// <param name="trans">This can be null</param>
         public void VacuumDatabase(string databaseFile, IDbTransaction? trans = null)
         {
-            using (SqliteConnection connection = GetConnectionManually())
+            using (SqliteConnection connection = GetConnection(databaseFile))
             {
                 // Open the database file you selected.
                 connection.Open();
@@ -160,78 +161,50 @@ namespace PositivelyInventory.Data
             }     
         }
 
-        public void TestSomething()
-        {
-            using (var backupConn = GetConnection(backupDatabasePath))
-            using (var primaryConn = GetConnection(backupDatabaseTempPath))
-            {
-                // Do stuff
-            }
-
-        }
-
         public bool TestDatabaseIsValid(string databaseFile)
         {
             // Establish a new connection object.
-            SqliteConnection connection = new SqliteConnection($"Data Source={databaseFile};");
-
-            // Open the database file you selected.
-            connection.Open();
-
-            if (connection.State != ConnectionState.Open)
+            using (SqliteConnection connection = GetConnection(databaseFile))
             {
-                return false;
-            } 
-            else
-            {
-                // We're not using "using" so we need to manually close the database and dispose of object.
-                connection.Close();
-                connection.Dispose();
+                // Open the database file you selected.
+                connection.Open();
 
-                return true;
+                if (connection.State != ConnectionState.Open)
+                {
+                    return false;
+                }
+                else
+                    return true;
             }
-                  
-            // using (SqliteConnection connection = GetConnectionManually())
-            //  {
-            //            connection.Open();
-
-
-            //    }
-            //    return null;
         }
 
-        // Create a brand new database, and populate it with tables and default data, using a valid app .sql file.
+        /// <summary>
+        /// Create a brand new database, and populate it with tables and default data, using a valid app .sql file. 
+        /// </summary>
+        /// <param name="sqlFile">Name of the new file.</param>
+        /// <exception cref="NotImplementedException"></exception>
         public void CreateDatabase(string sqlFile)
         {
-
             if (!File.Exists(sqlFile))
             {
                 SqliteConnection connection = new SqliteConnection(sqlFile);
             }
+
             throw new NotImplementedException();
         }
-
-        public SqliteConnection GetConnectionPrimary()
-        {
-            return new SqliteConnection(ConnectionStringPrimary);
+    
+        public SqliteConnection GetConnection(string databaseFile) 
+        { 
+            return new SqliteConnection($"Data Source={databaseFile}"); 
         }
 
-        public SqliteConnection GetConnectionBackup()
-        {
-            return new SqliteConnection(ConnectionStringBackup);
-        }
-
-        public SqliteConnection GetConnectionTemp()
-        {
-            return new SqliteConnection(ConnectionStringTempDb);
-        }
-
-        public string ConnectionStringBackup
+/*
+        public string ConnectionStringBackup(string databaseFile)
         {
             get
             {
                 if (_ConnectionString == null)
-                    _ConnectionString = $"Data Source={backupDatabasePath}";
+                    _ConnectionString = $"Data Source={databaseFile}";
 
                 return _ConnectionString;
             }
@@ -259,9 +232,6 @@ namespace PositivelyInventory.Data
             }
         }
 
-
-
+        */
     }
-
-
 }
