@@ -182,8 +182,6 @@ namespace PositivelyInventory.Data
                 else
                     return true;
             }
-
-        
         }
 
         /// <summary>
@@ -206,40 +204,5 @@ namespace PositivelyInventory.Data
             return new SqliteConnection($"Data Source={databaseFile}");
         }
 
-/*
-        public string ConnectionStringBackup(string databaseFile)
-        {
-            get
-            {
-                if (_ConnectionString == null)
-                    _ConnectionString = $"Data Source={databaseFile}";
-
-                return _ConnectionString;
-            }
-        }
-
-        public string ConnectionStringTempDb
-        {
-            get
-            {
-                if (_ConnectionString == null)
-                    _ConnectionString = $"Data Source={backupDatabaseTempPath}";
-
-                return _ConnectionString;
-            }
-        }
-
-        public string ConnectionStringPrimary
-        {
-            get
-            {
-                if (_ConnectionString == null)
-                    _ConnectionString = $"Data Source={databaseCurrentLocation}";
-
-                return _ConnectionString;
-            }
-        }
-
-        */
     }
 }
