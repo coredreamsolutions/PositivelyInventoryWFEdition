@@ -1,17 +1,23 @@
 ﻿using Dapper;
-using Microsoft.Data.Sqlite;
+//using Microsoft.Data.Sqlite;
 using System.Data;
+using System.Data.SQLite;
 using System.Diagnostics;
 
 namespace PositivelyInventory.Data
 {
     public class DataManager
     {
-        string databaseCurrentLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
+        public bool BackupMode = false;
+
+        public string databaseCurrentLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
         public string databaseBackupLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Backups\";
 
-        public string? backupDatabasePath = String.Empty;
-        public string? backupDatabaseTempPath = String.Empty;
+        public string? backupDatabasePath = string.Empty;
+        public string? backupDatabaseTempPath = string.Empty;
+        
+        string ConnectionStringMain = $@"Data Source={AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
+        string ConnectionStringBackup = $@"Data Source={AppDomain.CurrentDomain.BaseDirectory}\DatabaseBackup.pidb";
 
         public DataManager()
         {
@@ -29,12 +35,17 @@ namespace PositivelyInventory.Data
             if (!File.Exists(databaseCurrentLocation))
             {
                 var result = MessageBox.Show(
-                    "The database is missing or corrupted, restore from a backup?",
-                    "Database Error", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    "The database is missing. Do you want to restore from a backup? To create a new database, click No.",
+                    "Database Missing", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
                 if (result == DialogResult.Yes)
                 {
                     RestoreDatabase();
+                } else
+                {
+                    CreateDatabase(databaseCurrentLocation);
+                    Thread.Sleep(1000);
+                    PopulateDatabase(databaseCurrentLocation);
                 }
             }
 
@@ -124,7 +135,7 @@ namespace PositivelyInventory.Data
 
                             // Clear all pending/idle pools so we can close the database
                             // Source: https://github.com/dotnet/efcore/issues/26369
-                            SqliteConnection.ClearAllPools();
+                            SQLiteConnection.ClearAllPools();
 
                             // Delete the temp database filename.
                             // Status: WORKS!!!!!
@@ -149,7 +160,8 @@ namespace PositivelyInventory.Data
         /// <param name="trans">This can be null</param>
         public void VacuumDatabase(string databaseFile, IDbTransaction? trans = null)
         {
-            using (SqliteConnection connection = GetConnection(databaseFile))
+            //using (SQLiteConnection connection = GetConnection(databaseFile))
+            using (SQLiteConnection connection = GetConnection(false))
             {
                 // Open the database file you selected.
                 connection.Open();
@@ -169,7 +181,8 @@ namespace PositivelyInventory.Data
         {
             //bool result = false; Passes
             // Establish a new connection object.
-            using (SqliteConnection connection = GetConnection(databaseFile))
+            //using (SQLiteConnection connection = GetConnection(databaseFile))
+            using (SQLiteConnection connection = GetConnection(false))
             {
 
                 // Open the database file you selected.
@@ -187,22 +200,85 @@ namespace PositivelyInventory.Data
         /// <summary>
         /// Create a brand new database, and populate it with tables and default data, using a valid app .sql file.
         /// </summary>
-        /// <param name="sqlFile">Name of the new file.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void CreateDatabase(string sqlFile)
+        /// <param name="databaseName">Name of the new database file.</param>
+        public void CreateDatabase(string databaseName)
         {
-            if (!File.Exists(sqlFile))
+            if (!File.Exists(databaseName))
             {
-                SqliteConnection connection = new SqliteConnection(sqlFile);
+                //using (SQLiteConnection connection = GetConnection(databaseName))
+                using (SQLiteConnection connection = GetConnection(false))
+                {
+                    connection.Open();
+                }
             }
-
-            throw new NotImplementedException();
         }
 
-        public SqliteConnection GetConnection(string databaseFile)
+        /// <summary>
+        /// Populate database with tables and default data, using a valid .sql syntax file.
+        /// </summary>
+        /// <param name="databaseName">Name of the new database file.</param>
+        /// <param name="sqlFilename">Name of the sql script file.</param>
+        public void PopulateDatabase(string databaseName, string? sqlFilename = null, IDbTransaction? trans = null)
         {
-            return new SqliteConnection($"Data Source={databaseFile}");
+            //using (SQLiteConnection connection = GetConnection(databaseName))
+            using (SQLiteConnection connection = GetConnection(false))
+            {
+                string sqlStatement = File.ReadAllText($@"{AppDomain.CurrentDomain.BaseDirectory}\Init.sql");
+
+                connection.Execute(sqlStatement, trans);
+
+            }
         }
 
+        public SQLiteConnection GetConnection(bool isBackupMode)
+        {
+            if (!isBackupMode)
+            {
+                return new SQLiteConnection(ConnectionStringMain);
+            }
+            else { 
+                return new SQLiteConnection(ConnectionStringBackup);
+            }
+        }
+
+        public DataTable Select(string sql, params SQLiteParameter[] param)
+        {
+            //using (SQLiteConnection sQLiteConnection = GetConnection(databaseCurrentLocation))
+            using (SQLiteConnection connection = GetConnection(false))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    using (SQLiteDataAdapter sQLiteDataAdapter = new SQLiteDataAdapter(command))
+                    {
+                        command.Parameters.AddRange(param);
+                        connection.Open();
+                        DataTable dataTable = new DataTable("data");
+                        sQLiteDataAdapter.Fill(dataTable);
+                        return dataTable;
+                    }
+                }
+            }
+        }
+
+        public DataSet SelectTwo(string sql, params SQLiteParameter[] param)
+        {
+            //using (SQLiteConnection sQLiteConnection = GetConnection(databaseCurrentLocation))
+            using (SQLiteConnection connection = GetConnection(false))
+            {
+                using (SQLiteCommand command = new SQLiteCommand(sql, connection))
+                {
+                    using (SQLiteDataAdapter sQLiteDataAdapter = new SQLiteDataAdapter(command))
+                    {
+                        command.Parameters.AddRange(param);
+                        connection.Open();
+                        DataSet dataSet = new DataSet("data");
+                        sQLiteDataAdapter.Fill(dataSet);
+                        return dataSet;
+                    }
+                }
+            }
+        }
+
+        
     }
 }

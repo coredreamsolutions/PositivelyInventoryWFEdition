@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PositivelyInventory.Presentation
 {
-    public partial class Contacts : Form
+    public partial class AddContactView : Form
     {
-        public Contacts()
+        public AddContactView()
         {
             InitializeComponent();
         }

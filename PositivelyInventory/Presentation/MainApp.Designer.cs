@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.MenuStripFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripEditSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripEditContacts = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripView = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripToolDatabaseManager = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPositivelyInventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripView = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuStripToolsBackupData = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +55,56 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // MenuStripFile
+            // 
+            this.MenuStripFile.Name = "MenuStripFile";
+            this.MenuStripFile.Size = new System.Drawing.Size(37, 20);
+            this.MenuStripFile.Text = "&File";
+            // 
+            // MenuStripEdit
+            // 
+            this.MenuStripEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStripEditSettings,
+            this.MenuStripEditContacts});
+            this.MenuStripEdit.Name = "MenuStripEdit";
+            this.MenuStripEdit.Size = new System.Drawing.Size(39, 20);
+            this.MenuStripEdit.Text = "&Edit";
+            // 
+            // MenuStripEditSettings
+            // 
+            this.MenuStripEditSettings.Name = "MenuStripEditSettings";
+            this.MenuStripEditSettings.Size = new System.Drawing.Size(121, 22);
+            this.MenuStripEditSettings.Text = "Settings";
+            this.MenuStripEditSettings.Click += new System.EventHandler(this.MenuStripEditSettings_Click);
+            // 
+            // MenuStripEditContacts
+            // 
+            this.MenuStripEditContacts.Name = "MenuStripEditContacts";
+            this.MenuStripEditContacts.Size = new System.Drawing.Size(121, 22);
+            this.MenuStripEditContacts.Text = "&Contacts";
+            this.MenuStripEditContacts.Click += new System.EventHandler(this.MenuStripEditContacts_Click);
+            // 
+            // MenuStripView
+            // 
+            this.MenuStripView.Name = "MenuStripView";
+            this.MenuStripView.Size = new System.Drawing.Size(44, 20);
+            this.MenuStripView.Text = "&View";
+            // 
+            // MenuStripTools
+            // 
+            this.MenuStripTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuStripToolDatabaseManager});
+            this.MenuStripTools.Name = "MenuStripTools";
+            this.MenuStripTools.Size = new System.Drawing.Size(46, 20);
+            this.MenuStripTools.Text = "&Tools";
+            // 
+            // MenuStripToolDatabaseManager
+            // 
+            this.MenuStripToolDatabaseManager.Name = "MenuStripToolDatabaseManager";
+            this.MenuStripToolDatabaseManager.Size = new System.Drawing.Size(172, 22);
+            this.MenuStripToolDatabaseManager.Text = "Database Manager";
+            this.MenuStripToolDatabaseManager.Click += new System.EventHandler(this.MenuStripToolsBackupData_Click);
+            // 
             // MenuStripHelp
             // 
             this.MenuStripHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -67,39 +119,6 @@
             this.aboutPositivelyInventoryToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.aboutPositivelyInventoryToolStripMenuItem.Text = "&About Positively Inventory";
             // 
-            // MenuStripFile
-            // 
-            this.MenuStripFile.Name = "MenuStripFile";
-            this.MenuStripFile.Size = new System.Drawing.Size(37, 20);
-            this.MenuStripFile.Text = "&File";
-            // 
-            // MenuStripTools
-            // 
-            this.MenuStripTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuStripToolsBackupData});
-            this.MenuStripTools.Name = "MenuStripTools";
-            this.MenuStripTools.Size = new System.Drawing.Size(46, 20);
-            this.MenuStripTools.Text = "&Tools";
-            // 
-            // MenuStripEdit
-            // 
-            this.MenuStripEdit.Name = "MenuStripEdit";
-            this.MenuStripEdit.Size = new System.Drawing.Size(39, 20);
-            this.MenuStripEdit.Text = "&Edit";
-            // 
-            // MenuStripView
-            // 
-            this.MenuStripView.Name = "MenuStripView";
-            this.MenuStripView.Size = new System.Drawing.Size(44, 20);
-            this.MenuStripView.Text = "&View";
-            // 
-            // MenuStripToolsBackupData
-            // 
-            this.MenuStripToolsBackupData.Name = "MenuStripToolsBackupData";
-            this.MenuStripToolsBackupData.Size = new System.Drawing.Size(180, 22);
-            this.MenuStripToolsBackupData.Text = "Backup Data";
-            this.MenuStripToolsBackupData.Click += new System.EventHandler(this.MenuStripToolsBackupData_Click);
-            // 
             // MainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -108,7 +127,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainApp";
-            this.Text = "MainApp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Positively Inventory Lite";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -123,8 +143,10 @@
         private ToolStripMenuItem MenuStripEdit;
         private ToolStripMenuItem MenuStripView;
         private ToolStripMenuItem MenuStripTools;
-        private ToolStripMenuItem MenuStripToolsBackupData;
+        private ToolStripMenuItem MenuStripToolDatabaseManager;
         private ToolStripMenuItem MenuStripHelp;
         private ToolStripMenuItem aboutPositivelyInventoryToolStripMenuItem;
+        private ToolStripMenuItem MenuStripEditSettings;
+        private ToolStripMenuItem MenuStripEditContacts;
     }
 }

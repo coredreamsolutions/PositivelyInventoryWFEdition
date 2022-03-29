@@ -31,6 +31,8 @@
             this.RunManualBackup = new System.Windows.Forms.Button();
             this.DataBackupFilesList = new System.Windows.Forms.ListBox();
             this.RestoreSelectedBackup = new System.Windows.Forms.Button();
+            this.TestCreateDatabase = new System.Windows.Forms.Button();
+            this.TestPopulateDatabase = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // RunManualBackup
@@ -63,11 +65,33 @@
             this.RestoreSelectedBackup.UseVisualStyleBackColor = true;
             this.RestoreSelectedBackup.Click += new System.EventHandler(this.RestoreSelectedBackup_Click);
             // 
+            // TestCreateDatabase
+            // 
+            this.TestCreateDatabase.Location = new System.Drawing.Point(12, 171);
+            this.TestCreateDatabase.Name = "TestCreateDatabase";
+            this.TestCreateDatabase.Size = new System.Drawing.Size(96, 51);
+            this.TestCreateDatabase.TabIndex = 3;
+            this.TestCreateDatabase.Text = "Create Database";
+            this.TestCreateDatabase.UseVisualStyleBackColor = true;
+            this.TestCreateDatabase.Click += new System.EventHandler(this.TestCreateDatabase_Click);
+            // 
+            // TestPopulateDatabase
+            // 
+            this.TestPopulateDatabase.Location = new System.Drawing.Point(114, 169);
+            this.TestPopulateDatabase.Name = "TestPopulateDatabase";
+            this.TestPopulateDatabase.Size = new System.Drawing.Size(96, 51);
+            this.TestPopulateDatabase.TabIndex = 4;
+            this.TestPopulateDatabase.Text = "Populate Database";
+            this.TestPopulateDatabase.UseVisualStyleBackColor = true;
+            this.TestPopulateDatabase.Click += new System.EventHandler(this.TestPopulateDatabase_Click);
+            // 
             // DataBackup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 234);
+            this.Controls.Add(this.TestPopulateDatabase);
+            this.Controls.Add(this.TestCreateDatabase);
             this.Controls.Add(this.RestoreSelectedBackup);
             this.Controls.Add(this.DataBackupFilesList);
             this.Controls.Add(this.RunManualBackup);
@@ -85,5 +109,7 @@
         private Button RunManualBackup;
         private ListBox DataBackupFilesList;
         private Button RestoreSelectedBackup;
+        private Button TestCreateDatabase;
+        private Button TestPopulateDatabase;
     }
 }
