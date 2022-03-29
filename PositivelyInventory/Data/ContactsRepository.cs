@@ -25,8 +25,9 @@ namespace PositivelyInventory.Data
                 {
                        contact.ContactId = connection.Query<long>(
                            @"INSERT INTO Contacts (FirstName, LastName, Email, MobileNumber, OfficeNumber) " +
-                           "VALUES (@FirstName, @LastName, @Email, @MobileNumber, @OfficeNumber); " +
+                           "VALUES (@FirstName, @LastName, @Email, @MobileNumber, @OfficeNumber); " + //
                            "SELECT last_insert_rowid()", contact, trans, true, null, null).FirstOrDefault<long>();
+                    //ToDo: use parameterized queries: https://stackoverflow.com/questions/22776756/parameterized-queries-in-sqlite3-using-question-marks
                 }
             }
         }
