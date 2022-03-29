@@ -11,8 +11,8 @@ namespace PositivelyInventory.Data
         public string databaseCurrentLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
         public string databaseBackupLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Backups\";
 
-        public string? backupDatabasePath = string.Empty;
-        public string? backupDatabaseTempPath = string.Empty;
+        public string? backupDatabasePath;
+        public string? backupDatabaseTempPath;
         
         string ConnectionStringMain = $@"Data Source={AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
         string ConnectionStringBackup = $@"Data Source={AppDomain.CurrentDomain.BaseDirectory}\DatabaseBackup.pidb";

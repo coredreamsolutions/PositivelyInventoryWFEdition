@@ -54,7 +54,7 @@ namespace PositivelyInventory.Presentation
                 return;
             }
 
-            productRepository.SaveCategory(CategoryNodel, null);
+            productRepository.SaveCategory(CategoryModel, null);
          //   Close();
             //PopulateCategoriesGrid();
         }
