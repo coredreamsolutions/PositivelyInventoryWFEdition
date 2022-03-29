@@ -33,11 +33,13 @@
             this.MenuStripEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripEditSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripEditContacts = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuStripEditCategories = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripView = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripTools = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripToolDatabaseManager = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStripHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutPositivelyInventoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +67,8 @@
             // 
             this.MenuStripEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MenuStripEditSettings,
-            this.MenuStripEditContacts});
+            this.MenuStripEditContacts,
+            this.MenuStripEditCategories});
             this.MenuStripEdit.Name = "MenuStripEdit";
             this.MenuStripEdit.Size = new System.Drawing.Size(39, 20);
             this.MenuStripEdit.Text = "&Edit";
@@ -73,16 +76,23 @@
             // MenuStripEditSettings
             // 
             this.MenuStripEditSettings.Name = "MenuStripEditSettings";
-            this.MenuStripEditSettings.Size = new System.Drawing.Size(121, 22);
+            this.MenuStripEditSettings.Size = new System.Drawing.Size(180, 22);
             this.MenuStripEditSettings.Text = "Settings";
             this.MenuStripEditSettings.Click += new System.EventHandler(this.MenuStripEditSettings_Click);
             // 
             // MenuStripEditContacts
             // 
             this.MenuStripEditContacts.Name = "MenuStripEditContacts";
-            this.MenuStripEditContacts.Size = new System.Drawing.Size(121, 22);
+            this.MenuStripEditContacts.Size = new System.Drawing.Size(180, 22);
             this.MenuStripEditContacts.Text = "&Contacts";
             this.MenuStripEditContacts.Click += new System.EventHandler(this.MenuStripEditContacts_Click);
+            // 
+            // MenuStripEditCategories
+            // 
+            this.MenuStripEditCategories.Name = "MenuStripEditCategories";
+            this.MenuStripEditCategories.Size = new System.Drawing.Size(180, 22);
+            this.MenuStripEditCategories.Text = "Categories";
+            this.MenuStripEditCategories.Click += new System.EventHandler(this.MenuStripEditCategories_Click);
             // 
             // MenuStripView
             // 
@@ -119,11 +129,22 @@
             this.aboutPositivelyInventoryToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.aboutPositivelyInventoryToolStripMenuItem.Text = "&About Positively Inventory";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(436, 85);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainApp";
@@ -148,5 +169,7 @@
         private ToolStripMenuItem aboutPositivelyInventoryToolStripMenuItem;
         private ToolStripMenuItem MenuStripEditSettings;
         private ToolStripMenuItem MenuStripEditContacts;
+        private Button button1;
+        private ToolStripMenuItem MenuStripEditCategories;
     }
 }

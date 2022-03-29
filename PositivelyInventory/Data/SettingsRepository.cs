@@ -3,15 +3,13 @@ using PositivelyInventory.Model;
 using System.Data;
 using System.Data.SQLite;
 
-
-
 namespace PositivelyInventory.Data
 {
     public class SettingsRepository
     {
         readonly DataManager dataManager = new DataManager();
 
-        public Setting GetSettings()
+        public Setting? GetSettings()
         {
             using (SQLiteConnection connection = dataManager.GetConnection(false))
             {
@@ -19,7 +17,7 @@ namespace PositivelyInventory.Data
             }
         }
 
-        public void UpdateSettings(Setting settingModel, IDbTransaction trans = null)
+        public void UpdateSettings(Setting settingModel, IDbTransaction? trans = null)
         {
             using (SQLiteConnection connection = dataManager.GetConnection(false))
             {

@@ -23,11 +23,7 @@ namespace PositivelyInventory.Presentation
             InitializeComponent();
 
             ContactModel = contact ?? throw new ArgumentNullException("contact");
-            BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = contact;
-
-            ContactsGrid.Update();
-  
+ 
             ConfigureGrid();
             PopulateContactsGrid();
         }
