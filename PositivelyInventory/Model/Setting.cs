@@ -2,8 +2,9 @@ namespace PositivelyInventory.Model
 {
 	public class Setting
 	{
-		public long SettingsId { get; set; }
+		public long Id { get; set; }
 
-		public long ShowLogo { get; set; }
+        public long ShowStoreBranding { get; set; }
+        public string? DatabaseBackupPath { get; set; }
 	}
 }

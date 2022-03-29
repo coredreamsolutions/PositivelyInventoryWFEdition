@@ -1,6 +1,6 @@
 ﻿namespace PositivelyInventory.Presentation
 {
-    partial class Contacts
+    partial class AddContactView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // AddContactView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Contacts";
+            this.ClientSize = new System.Drawing.Size(608, 249);
+            this.Name = "AddContactView";
+            this.Text = "Add Contact";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

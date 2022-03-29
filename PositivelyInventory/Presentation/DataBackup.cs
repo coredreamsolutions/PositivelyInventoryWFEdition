@@ -39,6 +39,14 @@ namespace PositivelyInventory.Presentation
             dataManager.RestoreBackup(DataBackupFilesList.Text);
         }
 
-       
+        private void TestCreateDatabase_Click(object sender, EventArgs e)
+        {
+            dataManager.CreateDatabase($@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb");
+        }
+
+        private void TestPopulateDatabase_Click(object sender, EventArgs e)
+        {
+            dataManager.PopulateDatabase($@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb");
+        }
     }
 }
