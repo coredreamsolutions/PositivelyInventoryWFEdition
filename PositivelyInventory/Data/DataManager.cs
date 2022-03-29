@@ -153,7 +153,7 @@ namespace PositivelyInventory.Data
         {
             using (SQLiteConnection connection = GetConnection(false))
             {
-                string sqlStatement = File.ReadAllText($@"{AppDomain.CurrentDomain.BaseDirectory}\Init.sql");
+                var sqlStatement = File.ReadAllText($@"{AppDomain.CurrentDomain.BaseDirectory}\Init.sql");
                 connection.Execute(sqlStatement, trans);
             }
         }
