@@ -11,7 +11,7 @@ namespace PositivelyInventory.Data
         public string databaseCurrentLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
         public string databaseBackupLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\Backups\";
 
-        public string? backupDatabasePath = string.Empty;
+        public string? backupDatabasePath = string.Empty; //ToDo: If it's nullable, why do you have it initialized to `string.Empty` ? Where can it be set to null?
         public string? backupDatabaseTempPath = string.Empty;
         
         string ConnectionStringMain = $@"Data Source={AppDomain.CurrentDomain.BaseDirectory}\Database.pidb";
@@ -31,7 +31,7 @@ namespace PositivelyInventory.Data
                 } else
                 {
                     CreateDatabase(databaseCurrentLocation);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(1000); //ToDo: What is this?
                     PopulateDatabase(databaseCurrentLocation);
                 }
             }
@@ -142,7 +142,7 @@ namespace PositivelyInventory.Data
         {
             if (!File.Exists(databaseName))
             {
-                using (SQLiteConnection connection = GetConnection(false))
+                using (SQLiteConnection connection = GetConnection(false)) //ToDo: I thought you agreed to not having two connection strings.
                 {
                     connection.Open();
                 }
@@ -153,7 +153,7 @@ namespace PositivelyInventory.Data
         {
             using (SQLiteConnection connection = GetConnection(false))
             {
-                string sqlStatement = File.ReadAllText($@"{AppDomain.CurrentDomain.BaseDirectory}\Init.sql");
+                string sqlStatement = File.ReadAllText($@"{AppDomain.CurrentDomain.BaseDirectory}\Init.sql"); //ToDo: Use `var`.
                 connection.Execute(sqlStatement, trans);
             }
         }
