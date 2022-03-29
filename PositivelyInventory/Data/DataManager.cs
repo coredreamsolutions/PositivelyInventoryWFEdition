@@ -41,7 +41,7 @@ namespace PositivelyInventory.Data
         }
 
         public void RestoreBackup(string selectedBackup)
-        {
+        { //ToDo: Why isn't this in a try-catch?
             File.Move(selectedBackup,
                 $@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb");
 
