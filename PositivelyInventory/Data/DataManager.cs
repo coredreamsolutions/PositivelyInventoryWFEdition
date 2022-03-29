@@ -1,8 +1,6 @@
 ﻿using Dapper;
-//using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Data.SQLite;
-using System.Diagnostics;
 
 namespace PositivelyInventory.Data
 {
@@ -44,10 +42,6 @@ namespace PositivelyInventory.Data
 
         public void RestoreBackup(string selectedBackup)
         {
-            // Once we have the restore file, we must copy it to the main data folder,
-            // and rename it to Database.pidb.
-
-            // Move and rename the file.
             File.Move(selectedBackup,
                 $@"{AppDomain.CurrentDomain.BaseDirectory}\Database.pidb");
 
@@ -69,12 +63,11 @@ namespace PositivelyInventory.Data
                 MessageBox.Show("N");
 
             }
-
         }
 
         public void BackupDatabase(bool isAuto)
         {
-            if (!isAuto) // Manual
+            if (!isAuto) 
             {
                 using (FolderBrowserDialog folderBrowser = new FolderBrowserDialog())
                 {
@@ -102,7 +95,6 @@ namespace PositivelyInventory.Data
                         if (true)
                         {
                             File.Delete(backupDatabasePath);
-
                             File.Copy(backupDatabaseTempPath, backupDatabasePath, true);
 
                             SQLiteConnection.ClearAllPools();
