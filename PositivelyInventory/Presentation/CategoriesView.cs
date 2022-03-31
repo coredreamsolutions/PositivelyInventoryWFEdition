@@ -15,9 +15,10 @@ namespace PositivelyInventory.Presentation
         public CategoriesView(List<Category> categoryListModel, Category categoryNew) // 3 Here
         {
             InitializeComponent();
-            // 3 here
+
             CategoryListModel = categoryListModel ?? throw new ArgumentNullException("categoryListModel");
             CategoryModel = categoryNew ?? throw new ArgumentNullException("categoryNew");
+
             ConfigureGrid();
             PopulateCategoriesGrid();
         }
@@ -30,11 +31,9 @@ namespace PositivelyInventory.Presentation
         }
         private void PopulateCategoriesGrid()
         {
-           // List<Categories> categories = categoriesRepository.GetCategories();
             List<Category> CategoryList = categoriesRepository.GetCategories();
             BindingSource bindingSource = new BindingSource();
-          //  bindingSource.DataSource = categories;
-            bindingSource.DataSource = CategoryList; // 3 here
+            bindingSource.DataSource = CategoryList;
             CategoriesGrid.DataSource = bindingSource;
             CategoriesGrid.Update();
         }
@@ -54,7 +53,8 @@ namespace PositivelyInventory.Presentation
             CheckResult checkResult = CategoryValidator.ValidateSave(CategoryModel);
             if (checkResult.Failed)
             {
-                MessageBox.Show(checkResult.Items[0].Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(checkResult.Items[0].Message, "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
           
