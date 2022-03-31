@@ -38,19 +38,6 @@ namespace PositivelyInventory.Data
             }
         }
 
-        public void SaveCategory(Categories categories, IDbTransaction? trans = null)
-        {
-            using (SQLiteConnection connection = dataManager.GetConnection(false))
-            {
-                if (categories.CategoryId == 0L)
-                {
-                    categories.CategoryId = connection.Query<long>(
-                        @"INSERT INTO Categories (CategoryName) 
-                          VALUES (@CategoryName); 
-                          SELECT last_insert_rowid()", 
-                        categories, trans, true, null, null).FirstOrDefault<long>();
-                }
-            }
-        }
+        
     }
 }

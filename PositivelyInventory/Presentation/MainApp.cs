@@ -11,7 +11,7 @@ namespace PositivelyInventory.Presentation
         SettingsRepository settingsRepository = new SettingsRepository();
         ContactsRepository contactsRepository = new ContactsRepository();
         ProductRepository productRepository = new ProductRepository();
-
+        CategoriesRepository categoriesRepository = new CategoriesRepository();
         public MainApp()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace PositivelyInventory.Presentation
 
         private void MenuStripEditSettings_Click(object sender, EventArgs e)
         {
-            Setting setting = settingsRepository.GetSettings();
+            Setting? setting = settingsRepository.GetSettings();
 
             using (SettingsView settingsView = new SettingsView(setting))
                 settingsView.ShowDialog();
@@ -54,8 +54,9 @@ namespace PositivelyInventory.Presentation
 
         private void MenuStripEditCategories_Click(object sender, EventArgs e)
         {
-            List<Categories> categories = productRepository.GetCategories();
-            using (CategoriesView categoriesView = new CategoriesView(categories))
+            List<Category> categoryList = categoriesRepository.GetCategories(); // Shows 3
+            Category categoryNew = new Category();
+            using (CategoriesView categoriesView = new CategoriesView(categoryList, categoryNew))
             {
                 categoriesView.Owner = this;
                 categoriesView.ShowDialog();

@@ -6,17 +6,18 @@ namespace PositivelyInventory.Presentation
 {
     public partial class CategoriesView : Form
     {
-        static ProductRepository productRepository = new ProductRepository();
-        
-        public static List<Categories>? CategoriesModel { get; set; }
-        public static Category? CategoryModel { get; set; }
-    
-        public CategoriesView(List<Categories> categories)
+        CategoriesRepository categoriesRepository = new CategoriesRepository();
+        //CategoriesRepository categoryRepository = new CategoriesRepository();
+
+        public List<Category> CategoryListModel { get; set; }
+        public Category CategoryModel { get; set; }
+
+        public CategoriesView(List<Category> categoryListModel, Category categoryNew) // 3 Here
         {
             InitializeComponent();
-
-            CategoriesModel = categories ?? throw new ArgumentNullException("categories");
-           
+            // 3 here
+            CategoryListModel = categoryListModel ?? throw new ArgumentNullException("categoryListModel");
+            CategoryModel = categoryNew ?? throw new ArgumentNullException("categoryNew");
             ConfigureGrid();
             PopulateCategoriesGrid();
         }
@@ -29,9 +30,11 @@ namespace PositivelyInventory.Presentation
         }
         private void PopulateCategoriesGrid()
         {
-            List<Categories> categories = productRepository.GetCategories();
+           // List<Categories> categories = categoriesRepository.GetCategories();
+            List<Category> CategoryList = categoriesRepository.GetCategories();
             BindingSource bindingSource = new BindingSource();
-            bindingSource.DataSource = categories;
+          //  bindingSource.DataSource = categories;
+            bindingSource.DataSource = CategoryList; // 3 here
             CategoriesGrid.DataSource = bindingSource;
             CategoriesGrid.Update();
         }
@@ -45,18 +48,19 @@ namespace PositivelyInventory.Presentation
             SaveNewCategory();
         }
 
-        public static void SaveNewCategory()
+        public void SaveNewCategory()
         {
+        
             CheckResult checkResult = CategoryValidator.ValidateSave(CategoryModel);
             if (checkResult.Failed)
             {
                 MessageBox.Show(checkResult.Items[0].Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
-            productRepository.SaveCategory(CategoryModel, null);
-         //   Close();
-            //PopulateCategoriesGrid();
+          
+            categoriesRepository.SaveCategory(CategoryModel, null);
+            Close();
+            PopulateCategoriesGrid();
         }
     }
 }
