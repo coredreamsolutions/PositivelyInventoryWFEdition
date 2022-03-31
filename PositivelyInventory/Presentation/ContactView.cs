@@ -38,6 +38,7 @@ namespace PositivelyInventory.Presentation
 
         public void SaveContactView()
         {
+            // This is good!
             CheckResult checkResult = ContactValidator.ValidateSave(ContactModel);
             if (checkResult.Failed)
             {

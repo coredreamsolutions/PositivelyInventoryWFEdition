@@ -7,7 +7,6 @@ namespace PositivelyInventory.Presentation
     public partial class CategoriesView : Form
     {
         CategoriesRepository categoriesRepository = new CategoriesRepository();
-        //CategoriesRepository categoryRepository = new CategoriesRepository();
 
         public List<Category> CategoryListModel { get; set; }
         public Category CategoryModel { get; set; }
@@ -19,15 +18,17 @@ namespace PositivelyInventory.Presentation
             CategoryListModel = categoryListModel ?? throw new ArgumentNullException("categoryListModel");
             CategoryModel = categoryNew ?? throw new ArgumentNullException("categoryNew");
 
+            
             ConfigureGrid();
             PopulateCategoriesGrid();
+            BindModel(categoryNew);
         }
 
         private void ConfigureGrid()
         {
             CategoriesGrid.AutoGenerateColumns = false;
             CategoriesGrid.RowHeadersVisible = false;
-            CategoriesGrid.Columns[0].Visible = true;
+            CategoriesGrid.Columns[0].Visible = true;  
         }
         private void PopulateCategoriesGrid()
         {
@@ -51,6 +52,7 @@ namespace PositivelyInventory.Presentation
         {
         
             CheckResult checkResult = CategoryValidator.ValidateSave(CategoryModel);
+
             if (checkResult.Failed)
             {
                 MessageBox.Show(checkResult.Items[0].Message, "Error", 
@@ -59,7 +61,7 @@ namespace PositivelyInventory.Presentation
             }
           
             categoriesRepository.SaveCategory(CategoryModel, null);
-            Close();
+   
             PopulateCategoriesGrid();
         }
     }

@@ -13,7 +13,7 @@ namespace PositivelyInventory.Data
         {
             using (SQLiteConnection connection = dataManager.GetConnection(false))
             {
-                return connection.Query<Category>(@"SELECT * FROM Categories;").ToList();
+                return connection.Query<Category>(@"SELECT * FROM Categories ORDER BY CategoryName;").ToList();
             }
         }
 
