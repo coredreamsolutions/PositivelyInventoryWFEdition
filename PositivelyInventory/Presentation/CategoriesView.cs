@@ -9,7 +9,7 @@ namespace PositivelyInventory.Presentation
         CategoriesRepository categoriesRepository = new CategoriesRepository();
 
         public List<Category> CategoryListModel { get; set; }
-        public Category CategoryModel { get; set; }
+        public Category CategoryModel { get; private set; }
 
         public CategoriesView(List<Category> categoryListModel, Category categoryNew) // 3 Here
         {
@@ -32,6 +32,7 @@ namespace PositivelyInventory.Presentation
         }
         private void PopulateCategoriesGrid()
         {
+            
             List<Category> CategoryList = categoriesRepository.GetCategories();
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = CategoryList;
@@ -40,6 +41,7 @@ namespace PositivelyInventory.Presentation
         }
         public void BindModel(Category category)
         {
+            CategoryNumberIn.DataBindings.Add("Text", category, "CategoryId", true, DataSourceUpdateMode.OnPropertyChanged);
             CategoryNameIn.DataBindings.Add("Text", category, "CategoryName", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -63,6 +65,19 @@ namespace PositivelyInventory.Presentation
             categoriesRepository.SaveCategory(CategoryModel, null);
    
             PopulateCategoriesGrid();
+        }
+
+        private void NewCategory_Click(object sender, EventArgs e)
+        {
+            Category category = new Category();
+
+
+            CategoryNumberIn.Text = 0.ToString();
+            CategoryNameIn.Text = "";
+
+            SaveCategory.Enabled = true;
+            
+            CategoryNumberIn.Focus();
         }
     }
 }

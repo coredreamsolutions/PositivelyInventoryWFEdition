@@ -28,14 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CategoriesGrid = new System.Windows.Forms.DataGridView();
             this.CategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.CategoryNameIn = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.NewCategory = new System.Windows.Forms.Button();
             this.DeleteCategorySelected = new System.Windows.Forms.Button();
             this.SaveCategory = new System.Windows.Forms.Button();
+            this.NameLabel = new System.Windows.Forms.Label();
+            this.CategoryNameIn = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CategoryNumberIn = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.CategoriesGrid)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -68,38 +71,20 @@
             // CategoryName
             // 
             this.CategoryName.DataPropertyName = "CategoryName";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.WindowFrame;
-            dataGridViewCellStyle4.Padding = new System.Windows.Forms.Padding(5);
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.SkyBlue;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.CategoryName.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.WindowFrame;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SkyBlue;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.CategoryName.DefaultCellStyle = dataGridViewCellStyle2;
             this.CategoryName.HeaderText = "Category Name";
             this.CategoryName.Name = "CategoryName";
             this.CategoryName.ReadOnly = true;
             // 
-            // NameLabel
-            // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(214, 174);
-            this.NameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(52, 21);
-            this.NameLabel.TabIndex = 16;
-            this.NameLabel.Text = "Name";
-            // 
-            // CategoryNameIn
-            // 
-            this.CategoryNameIn.Location = new System.Drawing.Point(276, 171);
-            this.CategoryNameIn.Margin = new System.Windows.Forms.Padding(4);
-            this.CategoryNameIn.Name = "CategoryNameIn";
-            this.CategoryNameIn.PlaceholderText = "Category Name";
-            this.CategoryNameIn.Size = new System.Drawing.Size(324, 29);
-            this.CategoryNameIn.TabIndex = 17;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GrayText;
+            this.panel1.Controls.Add(this.NewCategory);
             this.panel1.Controls.Add(this.DeleteCategorySelected);
             this.panel1.Controls.Add(this.SaveCategory);
             this.panel1.Location = new System.Drawing.Point(201, -2);
@@ -108,6 +93,24 @@
             this.panel1.Size = new System.Drawing.Size(912, 141);
             this.panel1.TabIndex = 18;
             // 
+            // NewCategory
+            // 
+            this.NewCategory.FlatAppearance.BorderSize = 0;
+            this.NewCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.NewCategory.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.NewCategory.ForeColor = System.Drawing.Color.White;
+            this.NewCategory.Image = global::PositivelyInventory.Properties.Resources.newcontact_64x642;
+            this.NewCategory.Location = new System.Drawing.Point(13, 15);
+            this.NewCategory.Margin = new System.Windows.Forms.Padding(4);
+            this.NewCategory.Name = "NewCategory";
+            this.NewCategory.Size = new System.Drawing.Size(116, 106);
+            this.NewCategory.TabIndex = 4;
+            this.NewCategory.Text = "New";
+            this.NewCategory.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.NewCategory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.NewCategory.UseVisualStyleBackColor = true;
+            this.NewCategory.Click += new System.EventHandler(this.NewCategory_Click);
+            // 
             // DeleteCategorySelected
             // 
             this.DeleteCategorySelected.FlatAppearance.BorderSize = 0;
@@ -115,7 +118,7 @@
             this.DeleteCategorySelected.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.DeleteCategorySelected.ForeColor = System.Drawing.Color.White;
             this.DeleteCategorySelected.Image = global::PositivelyInventory.Properties.Resources.delete_64x64;
-            this.DeleteCategorySelected.Location = new System.Drawing.Point(153, 13);
+            this.DeleteCategorySelected.Location = new System.Drawing.Point(348, 15);
             this.DeleteCategorySelected.Margin = new System.Windows.Forms.Padding(4);
             this.DeleteCategorySelected.Name = "DeleteCategorySelected";
             this.DeleteCategorySelected.Size = new System.Drawing.Size(94, 106);
@@ -127,12 +130,13 @@
             // 
             // SaveCategory
             // 
+            this.SaveCategory.Enabled = false;
             this.SaveCategory.FlatAppearance.BorderSize = 0;
             this.SaveCategory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveCategory.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SaveCategory.ForeColor = System.Drawing.Color.White;
             this.SaveCategory.Image = global::PositivelyInventory.Properties.Resources.newcontact_64x642;
-            this.SaveCategory.Location = new System.Drawing.Point(13, 13);
+            this.SaveCategory.Location = new System.Drawing.Point(208, 15);
             this.SaveCategory.Margin = new System.Windows.Forms.Padding(4);
             this.SaveCategory.Name = "SaveCategory";
             this.SaveCategory.Size = new System.Drawing.Size(116, 106);
@@ -143,12 +147,52 @@
             this.SaveCategory.UseVisualStyleBackColor = true;
             this.SaveCategory.Click += new System.EventHandler(this.SaveCategory_Click);
             // 
+            // NameLabel
+            // 
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(224, 202);
+            this.NameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(52, 21);
+            this.NameLabel.TabIndex = 16;
+            this.NameLabel.Text = "Name";
+            // 
+            // CategoryNameIn
+            // 
+            this.CategoryNameIn.Location = new System.Drawing.Point(319, 199);
+            this.CategoryNameIn.Margin = new System.Windows.Forms.Padding(4);
+            this.CategoryNameIn.Name = "CategoryNameIn";
+            this.CategoryNameIn.PlaceholderText = "Category Name";
+            this.CategoryNameIn.Size = new System.Drawing.Size(324, 29);
+            this.CategoryNameIn.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(224, 165);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 21);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Cat #";
+            // 
+            // CategoryNumberIn
+            // 
+            this.CategoryNumberIn.Location = new System.Drawing.Point(319, 162);
+            this.CategoryNumberIn.Margin = new System.Windows.Forms.Padding(4);
+            this.CategoryNumberIn.Name = "CategoryNumberIn";
+            this.CategoryNumberIn.PlaceholderText = "Category #";
+            this.CategoryNumberIn.Size = new System.Drawing.Size(324, 29);
+            this.CategoryNumberIn.TabIndex = 20;
+            // 
             // CategoriesView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(1108, 416);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.CategoryNumberIn);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.CategoryNameIn);
@@ -170,10 +214,13 @@
 
         private DataGridView CategoriesGrid;
         private DataGridViewTextBoxColumn CategoryName;
-        private Label NameLabel;
-        private TextBox CategoryNameIn;
         private Panel panel1;
         private Button DeleteCategorySelected;
         private Button SaveCategory;
+        private Button NewCategory;
+        private Label NameLabel;
+        private TextBox CategoryNameIn;
+        private Label label1;
+        private TextBox CategoryNumberIn;
     }
 }

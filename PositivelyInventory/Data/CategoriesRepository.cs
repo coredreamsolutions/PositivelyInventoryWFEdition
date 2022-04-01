@@ -21,7 +21,7 @@ namespace PositivelyInventory.Data
         {
             using (SQLiteConnection connection = dataManager.GetConnection(false))
             {
-                if (category.CategoryId == 0L)
+                if (category.CategoryId == 0L)  // This is fine.
                 {
                     category.CategoryId = connection.Query<long>(
                         @"INSERT INTO Categories (CategoryName) 

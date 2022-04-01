@@ -42,9 +42,19 @@ namespace PositivelyInventory.Presentation
                 contactsView.Owner= this;
                 contactsView.ShowDialog();
             }
-          
         }
 
+        private void MenuStripEditCategories_Click(object sender, EventArgs e)
+        {
+            Category categoryNew = new Category();
+            List<Category> categoryList = categoriesRepository.GetCategories(); // Shows 3
+            
+            using (CategoriesView categoriesView = new CategoriesView(categoryList, categoryNew))
+            {
+                categoriesView.Owner = this;
+                categoriesView.ShowDialog();
+            }
+        }
 
         // TEST ONLY
         private void button1_Click(object sender, EventArgs e)
@@ -52,15 +62,6 @@ namespace PositivelyInventory.Presentation
             productRepository.GetProductByCategory();
         }
 
-        private void MenuStripEditCategories_Click(object sender, EventArgs e)
-        {
-            List<Category> categoryList = categoriesRepository.GetCategories(); // Shows 3
-            Category categoryNew = new Category();
-            using (CategoriesView categoriesView = new CategoriesView(categoryList, categoryNew))
-            {
-                categoriesView.Owner = this;
-                categoriesView.ShowDialog();
-            }
-        }
+        
     }
 }
